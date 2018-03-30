@@ -7,9 +7,11 @@ import android.support.v7.widget.RecyclerView
 import com.smallan.weatherapp.R
 import com.smallan.weatherapp.date.service.ForcastServer
 import com.smallan.weatherapp.date.service.ServerDataMapper
+import com.smallan.weatherapp.domain.model.Forecast
 import com.smallan.weatherapp.ui.adapter.ForecastListAdapter
 import org.jetbrains.anko.async
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
@@ -32,11 +34,16 @@ class MainActivity : AppCompatActivity() {
             val city = "北京"
             val wapper = ServerDataMapper()
             val result = ForcastServer(city,wapper).execute()
+
             uiThread {
-                mainRcl.adapter = ForecastListAdapter(result)
+                mainRcl.adapter = ForecastListAdapter(result,object :ForecastListAdapter.OnItemClickListener{
+                    override fun invoke(forcast: Forecast) {
+                        toast("点击我")
+                    }
+                })
             }
         }
-       // getData(url)
+        // getData(url)
         //copyData()
     }
 
@@ -49,15 +56,15 @@ class MainActivity : AppCompatActivity() {
           Log.d(javaClass.simpleName,for2.toString())
       }*/
 
- /*   //调用接口
-    fun getData(url:String) {
-        async{
-            Request(url).exeture()
-            uiThread {
-                toast("ok")
-            }
-        }
-    }*/
+    /*   //调用接口
+       fun getData(url:String) {
+           async{
+               Request(url).exeture()
+               uiThread {
+                   toast("ok")
+               }
+           }
+       }*/
 
 
 
