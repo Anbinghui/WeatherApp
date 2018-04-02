@@ -6,7 +6,7 @@ import com.google.gson.Gson
 /**
  * Created by An on 2018/3/27 0027.
  */
-class Request(val cityName:String) {
+class Request(private val cityName:String) {
    /* public fun run(){
         val forecastJsonStr = URL(url).readText()
         Log.d(javaClass.simpleName,forecastJsonStr)

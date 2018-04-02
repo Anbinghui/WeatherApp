@@ -3,17 +3,14 @@ package com.smallan.weatherapp.ui.activities
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import com.smallan.weatherapp.R
 import com.smallan.weatherapp.date.service.ForcastServer
 import com.smallan.weatherapp.date.service.ServerDataMapper
-import com.smallan.weatherapp.domain.model.Forecast
 import com.smallan.weatherapp.ui.adapter.ForecastListAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.async
-import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
-
 class MainActivity : AppCompatActivity() {
     private val items = listOf(
             "Mon 6/23 - Sunny - 31/17",
@@ -28,19 +25,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val mainRcl :RecyclerView  = find(R.id.rcl_main)
-        mainRcl.layoutManager = LinearLayoutManager(this)
-        async (){
+        rcl_main.layoutManager = LinearLayoutManager(this)
+        async {
             val city = "北京"
             val wapper = ServerDataMapper()
             val result = ForcastServer(city,wapper).execute()
 
             uiThread {
-                mainRcl.adapter = ForecastListAdapter(result,object :ForecastListAdapter.OnItemClickListener{
-                    override fun invoke(forcast: Forecast) {
-                        toast("点击我")
-                    }
-                })
+                rcl_main.adapter = ForecastListAdapter(result){forecast -> toast("天气"+forecast.weather) }
             }
         }
         // getData(url)
