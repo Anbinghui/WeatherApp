@@ -3,6 +3,7 @@ package com.smallan.weatherapp.ui.activities
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.smallan.weatherapp.R
 import com.smallan.weatherapp.date.service.ForcastServer
 import com.smallan.weatherapp.date.service.ServerDataMapper
@@ -37,6 +38,18 @@ class MainActivity : AppCompatActivity() {
         }
         // getData(url)
         //copyData()
+        val list = listOf(1,2,3,4,5,6)
+        assert(list.any { it>10 })
+        list.count { it>3 }
+        list.forEach { Log.i("TAG",it.toString()) }
+        list.forEachIndexed { index, value -> Log.i("TAG","index:"+index+" value:"+value) }
+
+        val name:String = "Smallan"
+
+        val a: Int? = null
+        a?.toString()
+        a!!.toString()
+
     }
 
 
